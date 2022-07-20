@@ -1,10 +1,10 @@
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
 
 import java.io.*;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 public class BufferedInputStreamTest {
     private String content = "JAVA UpSkill";
@@ -43,6 +43,7 @@ public class BufferedInputStreamTest {
         assertEquals('l', array[1]);
         assertEquals('l', array[2]);
     }
+
     @Test
     public void readArrayOfBytes_byByteArrayInputStream() throws IOException {
         byte[] array = new byte[4];
@@ -68,9 +69,8 @@ public class BufferedInputStreamTest {
     }
 
     @Test
-
     public void readByBufferedInputStreamWhenIncorrectParameterLengthIsIncorrect() {
-        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
+        assertThrows(IndexOutOfBoundsException.class, () -> {
             int offset = 3;
             byte[] array = new byte[2];
             bufferedInputStream.read(array, offset, 1);
@@ -79,7 +79,7 @@ public class BufferedInputStreamTest {
 
     @Test
     public void readByBufferedInputStreamWhenParameterOffIsIncorrect() {
-        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
+        assertThrows(IndexOutOfBoundsException.class, () -> {
             byte[] array = new byte[3];
             bufferedInputStream.read(array, 0, 4);
         });
@@ -87,15 +87,14 @@ public class BufferedInputStreamTest {
 
     @Test
     public void whenReadEmptyArrayOfBytesThenNullPointerException() {
-        Assertions.assertThrows(NullPointerException.class, () -> {
+        assertThrows(NullPointerException.class, () -> {
             bufferedInputStream.read(null);
         });
     }
 
     @Test
-
     public void whenInputStreamIsClosedBufferedInputStreamCantReadAndReturnedIOExceptionReturned() {
-        Assertions.assertThrows(IOException.class, () -> {
+        assertThrows(IOException.class, () -> {
             bufferedInputStream.close();
             bufferedInputStream.read();
         });
@@ -111,9 +110,33 @@ public class BufferedInputStreamTest {
 
     @Test
     public void whenReadArrayOfBytesIsNullThenReturnedNullPointerException() {
-        Assertions.assertThrows(NullPointerException.class, () -> {
-            byte[] array = null;
-            bufferedInputStream.read(array, 0, 6);
+        assertThrows(NullPointerException.class, () -> {
+            bufferedInputStream.read(null, 0, 6);
+        });
+    }
+
+    @Test
+    public void readByBufferedInputStreamWithIncorrectParameterLength() {
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            int offset = 6;
+            byte[] array = new byte[5];
+            bufferedInputStream.read(array, offset, 1);
+        });
+    }
+
+    @Test
+    public void readByBufferedInputStreamWithIncorrectParameterOff() {
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            byte[] array = new byte[3];
+            bufferedInputStream.read(array, 0, 4);
+        });
+    }
+
+    @Test
+    public void readArrayOfBytesWithParameterLengthLessThanZero() {
+        assertThrows(NegativeArraySizeException.class, () -> {
+            byte[] array = new byte[-1];
+            bufferedInputStream.read(array, 0, array.length);
         });
     }
 }

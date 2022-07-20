@@ -1,6 +1,5 @@
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -39,7 +38,6 @@ public class BufferedOutputStreamTest {
     }
 
     @Test
-
     public void writeWithParametersArrayOfBytesToOutputStream() throws Exception {
         bufferedOutputStream.write(content, 2, 2);
         bufferedOutputStream.close();
@@ -49,14 +47,14 @@ public class BufferedOutputStreamTest {
 
     @Test
     public void whenWriteEmptyArrayOfBytesThanReturnedNullPointerException() {
-        Assertions.assertThrows(NullPointerException.class, () -> {
+        assertThrows(NullPointerException.class, () -> {
             bufferedOutputStream.write(null);
         });
     }
 
     @Test
     public void writeArrayOfBytesWithParameterLengthLessThanZero() {
-        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
+        assertThrows(IndexOutOfBoundsException.class, () -> {
             byte[] array = new byte[5];
             bufferedOutputStream.write(array, 0, -1);
         });
@@ -64,7 +62,7 @@ public class BufferedOutputStreamTest {
 
     @Test
     public void writeArrayOfBytesWithParameterOffSetLessThanZero() {
-        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
+        assertThrows(IndexOutOfBoundsException.class, () -> {
             byte[] array = new byte[5];
             bufferedOutputStream.write(array, -1, 6);
         });
@@ -72,7 +70,7 @@ public class BufferedOutputStreamTest {
 
     @Test
     public void writeArrayOfBytesWithParameterOffSetEqualsZero() {
-        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
+       assertThrows(IndexOutOfBoundsException.class, () -> {
             byte[] array = new byte[5];
             bufferedOutputStream.write(array, 0, 6);
         });

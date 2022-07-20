@@ -1,5 +1,5 @@
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
+
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -29,7 +29,7 @@ public class ByteArrayOutputStreamTest {
 
     @Test
     public void whenWriteArrayWithParameterLengthLessThanOffSetPlusLength() {
-        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
+       assertThrows(IndexOutOfBoundsException.class, () -> {
             byte[] array = new byte[5];
             byteArrayOutputStream.write(array, 6, 1);
         });
@@ -37,7 +37,7 @@ public class ByteArrayOutputStreamTest {
 
     @Test
     public void whenWriteArrayWithParameterOffSetEqualsZero() {
-        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
+        assertThrows(IndexOutOfBoundsException.class, () -> {
             byte[] array = new byte[5];
             byteArrayOutputStream.write(array, 0, 6);
         });
@@ -45,14 +45,14 @@ public class ByteArrayOutputStreamTest {
 
     @Test
     public void whenWriteEmptyArrayThanNullPointerExceptionReturned() throws Exception {
-        Assertions.assertThrows(NullPointerException.class, () -> {
+        assertThrows(NullPointerException.class, () -> {
             byteArrayOutputStream.write(null);
         });
     }
 
     @Test
     public void whenReadEmptyArrayOfBytes_thenNullPointerException_Returned() {
-        Assertions.assertThrows(NullPointerException.class, () -> {
+        assertThrows(NullPointerException.class, () -> {
             byte[] buffer = null;
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream("".getBytes());
             byteArrayInputStream.read(buffer);

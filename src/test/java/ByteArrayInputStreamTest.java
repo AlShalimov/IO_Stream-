@@ -1,5 +1,4 @@
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
 
 import java.io.IOException;
 
@@ -52,7 +51,7 @@ public class ByteArrayInputStreamTest {
 
     @Test
     public void readByByteArrayWithIncorrectParameterOff() {
-        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
+        assertThrows(IndexOutOfBoundsException.class, () -> {
             byte[] array = new byte[4];
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream("Java".getBytes());
             byteArrayInputStream.read(array, 0, 5);
@@ -61,7 +60,7 @@ public class ByteArrayInputStreamTest {
 
     @Test
     public void whenReadEmptyArrayOfBytesThenReturnedNullPointerException() {
-        Assertions.assertThrows(NullPointerException.class, () -> {
+        assertThrows(NullPointerException.class, () -> {
             byte[] buffer = null;
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream("".getBytes());
             byteArrayInputStream.read(buffer);
@@ -71,7 +70,7 @@ public class ByteArrayInputStreamTest {
     @Test
 
     public void readArrayOfBytes_byByteArrayInputStream_withIncorrectParameterLength() {
-        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
+        assertThrows(IndexOutOfBoundsException.class, () -> {
             byte[] array = new byte[5];
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream("Hello".getBytes());
             byteArrayInputStream.read(array, 1, 5);

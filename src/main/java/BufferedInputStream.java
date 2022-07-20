@@ -63,8 +63,23 @@ public class BufferedInputStream extends InputStream {
             System.arraycopy(buffer, position, array, offset, count - position);
             position += count - position;
             copiedBytes = count - position;
-
         }
+        int extraBytes = length - copiedBytes;
+        if (fillBuffer() == -1) {
+            System.arraycopy(new byte[array.length], offset + copiedBytes, array, offset + copiedBytes, extraBytes);
+        } else {
+            if (count < extraBytes) {
+                System.arraycopy(buffer, position, array, offset + copiedBytes, count);
+                copiedBytes += count;
+                position += count;
+                System.arraycopy(new byte[array.length], offset + copiedBytes, array, offset + copiedBytes, offset + length);
+            } else {
+                System.arraycopy(buffer, position, array, offset + copiedBytes, extraBytes);
+                copiedBytes += extraBytes;
+                position += extraBytes;
+            }
+        }
+
         return copiedBytes;
     }
 
